@@ -12,8 +12,10 @@ import redis from 'ioredis';
 
 const env = process.env.ENVIRONMENT ?? 'production';
 const mode = process.env.MODE ?? '';
-const port = '3000';
+const port = process.env.PORT;
 const app = express();
+const queues = process.env.QUEUES!.split(',');
+const prefixes = process.env.PREFIXES!.split(',');
 const redis_user =
   env === 'local' || env === 'dev' ? 'default' : mode.replaceAll('_', '');
 const redis_user_bull =
@@ -50,35 +52,22 @@ const bullconnection = new redis.Cluster(bullConf, {
   enableReadyCheck: true,
   slotsRefreshTimeout: 500000,
 });
-const mqQueues = [
-  new BullMqQueue('metrics_queue', {
-    prefix: '{bull_metrics}',
-    connection: bullconnection,
-  }),
-  new BullMqQueue('tagging_queue', {
-    prefix: '{bull_tagging}',
-    connection: bullconnection,
-  }),
-  new BullMqQueue('dynamodb_account_queue', {
-    prefix: '{bull_dynamodb}',
-    connection: bullconnection,
-  }),
-  new BullMqQueue('assume_account_queue', {
-    prefix: '{bull_assumer}',
-    connection: bullconnection,
-  }),
-  new BullMqQueue('describe_queue', {
-    prefix: '{bull_describer}',
-    connection: bullconnection,
-  }),
-];
-const queue_prefix_lut = [
-  { queue: 'metrics_queue', prefix: '{bull_metrics}' },
-  { queue: 'tagging_queue', prefix: '{bull_tagging}' },
-  { queue: 'dynamodb_account_queue', prefix: '{bull_dynamodb}' },
-  { queue: 'assume_account_queue', prefix: '{bull_assumer}' },
-  { queue: 'describe_queue', prefix: '{bull_describer}' },
-];
+
+const mqQueues: any[] = [];
+const queue_prefix_lut: { queue: string; prefix: string }[] = [];
+for (let i = 0; i < queues.length; i++) {
+  mqQueues.push(
+    new BullMqQueue(queues[i], {
+      prefix: prefixes[i],
+      connection: bullconnection,
+    })
+  );
+  queue_prefix_lut.push({
+    queue: queues[i],
+    prefix: prefixes[i],
+  });
+}
+
 mqQueues.forEach((queue) => {
   const queuePrefix = queue_prefix_lut.find((i) => i.queue === queue.name);
   new MqWorker(
