@@ -8,7 +8,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": false,
-    "lib": ["ESNext"],
+    "lib": ["ESNext","ES2021.String"],
     "paths": {
       "@bull-monitor/root": ["../../../packages/root/src"],
       "@bull-monitor/root/*": ["../../../packages/root/src/*"],

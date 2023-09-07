@@ -10,88 +10,46 @@ import {
 } from 'bullmq';
 import redis from 'ioredis';
 
-// const QUEUES_AMOUNT = 5;
-// const READONLY_QUEUES_AMOUNT = 2;
-// const redisUri = process.env.REDIS_URI as string;
-// const redisHost = 'redis';
-// const port = process.env.PORT;
+const env = process.env.ENVIRONMENT ?? 'production';
+const mode = process.env.MODE ?? '';
 const port = '3000';
 const app = express();
-// const bullconnection: ConnectionOptions = {
-//   // host: redisHost,
-//   host: '172.20.0.20',
-//   port: 6379,
-//   password: 'eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81',
-// };
+const redis_user =
+  env === 'local' || env === 'dev' ? 'default' : mode.replaceAll('_', '');
+const redis_user_bull =
+  env === 'local' || env === 'dev' ? 'default' : redis_user + 'bull';
 
-// const bullconnection = {
-//   host: '172.20.0.20',
-//   port: 6379,
-//   password: 'eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81',
-// };
-
-// const redis_client = new redis({
-//   port: 6379,
-//   host: '172.20.0.20',
-//   // password: 'eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81',
-// });
-// (async () => {
-//   await redis_client.set('test_key', 'just a key');
-//   const result = await redis_client.keys('*');
-//   console.log('result: ', result);
-// })();
-// const natMap = {
-//   "172.20.0.71:6381": {host: '127.0.0.1', port: 6381},
-//   "172.20.0.72:6382": {host: '127.0.0.1', port: 6382},
-//   "172.20.0.73:6383": {host: '127.0.0.1', port: 6383}
-// }
-// const natMap = {
-//   '172.20.0.71:6381': { host: 'localhost', port: 6381 },
-//   '172.20.0.72:6382': { host: 'localhost', port: 6382 },
-//   '172.20.0.73:6383': { host: 'localhost', port: 6383 },
-// };
-// const bullconnection = new redis.Cluster(
-//   [
-//     { host: 'localhost', port: 6381 },
-//     { host: 'localhost', port: 6382 },
-//     { host: 'localhost', port: 6383 },
-//   ],
-//   {
-//     redisOptions: {
-//       username: 'default',
-//       password: 'eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81',
-//       tls: undefined,
-//     },
-//     natMap: natMap,
-//     dnsLookup: (address, callback) => callback(null, address),
-//     scaleReads: 'slave',
-//     enableAutoPipelining: true,
-//     enableOfflineQueue: true,
-//     enableReadyCheck: true,
-//     slotsRefreshTimeout: 500000,
-//   }
-// );
-const bullconnection = new redis.Cluster(
-  [
-    { host: '172.20.0.71', port: 6381 },
-    { host: '172.20.0.72', port: 6382 },
-    { host: '172.20.0.73', port: 6383 },
-  ],
+let bullConf = [
   {
-    redisOptions: {
-      username: 'default',
-      password: 'eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81',
-      tls: undefined,
-    },
-    // natMap: natMap,
-    dnsLookup: (address, callback) => callback(null, address),
-    scaleReads: 'slave',
-    enableAutoPipelining: true,
-    enableOfflineQueue: true,
-    enableReadyCheck: true,
-    slotsRefreshTimeout: 500000,
+    port: 6379,
+    host: process.env.BULL_REDIS_HOST,
+  },
+];
+if (env === 'local') {
+  const hosts = (process.env.BULL_REDIS_HOST ?? '').split(',');
+  const ports = (process.env.BULL_REDIS_PORT ?? '').split(',');
+  bullConf = [];
+  for (let i = 0; i < hosts.length; i++) {
+    bullConf.push({
+      host: hosts[i],
+      port: parseInt(ports[i]),
+    });
   }
-);
+}
+const bullconnection = new redis.Cluster(bullConf, {
+  redisOptions: {
+    username: redis_user_bull,
+    password: process.env.REDIS_PW_BULL,
+    tls: env !== 'local' && env !== 'dev' ? {} : undefined,
+  },
+  dnsLookup: (address: string, callback: (e: any, a: string) => void) =>
+    callback(null, address),
+  scaleReads: 'slave',
+  enableAutoPipelining: false, //what is this for??
+  enableOfflineQueue: true,
+  enableReadyCheck: true,
+  slotsRefreshTimeout: 500000,
+});
 const mqQueues = [
   new BullMqQueue('metrics_queue', {
     prefix: '{bull_metrics}',
@@ -157,5 +115,4 @@ monitor.init().then(() => {
 
 app.listen(port, () => {
   console.log(`Bull server fixture listening at http://localhost:${port}`);
-  // console.log('debug: ');
 });
