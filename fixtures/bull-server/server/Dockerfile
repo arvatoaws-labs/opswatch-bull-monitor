@@ -1,4 +1,4 @@
-FROM node:14.16.0-alpine3.13
+FROM ghcr.io/arvatoaws-labs/node:alpine
 
 RUN mkdir /app
 RUN mkdir /packages
