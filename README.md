@@ -1,5 +1,7 @@
 # bull-monitor
 
+Redis cluster suport version.
+
 Standard UI for [Bull](https://github.com/OptimalBits/bull) and [BullMQ](https://github.com/taskforcesh/bullmq).
 
 [Demo](https://s-r-x.github.io/bull-monitor)
