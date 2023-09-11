@@ -2,14 +2,14 @@
   "name": "@bull-monitor/ui",
   "version": "5.4.0",
   "license": "MIT",
-  "author": "Ilya Strus <strax1990@gmail.com>",
+  "author": "",
   "description": "bull-monitor ui",
   "keywords": [
     "bull"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/s-r-x/bull-monitor.git",
+    "url": "https://github.com/arvatoaws-labs/opswatch-bull-monitor.git",
     "directory": "packages/ui"
   },
   "scripts": {

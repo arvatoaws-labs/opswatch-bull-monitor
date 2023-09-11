@@ -11,4 +11,4 @@ RUN chown -R nobody:nobody /app
 RUN mkdir -p /.npm && chown -R nobody:nobody /.npm
 USER nobody
 
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
