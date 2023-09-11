@@ -12,6 +12,7 @@ import { useRemoveJobSelectionOnUnmount } from './hooks';
 import ms from 'ms';
 import AccordionJsonView from '@/components/AccordionJsonView';
 import { usePreferencesStore } from '@/stores/preferences';
+import { unserializeJSON } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   rowWithExtra: {
@@ -57,6 +58,11 @@ const Job = ({
   const hasStacktrace = !isempty(job.stacktrace);
   const hasReturnValue = !isempty(job.returnValue);
   const showExtra = hasData || hasStacktrace || hasReturnValue;
+
+  // const decompressedData = unserializeJSON(job.data);
+  const decompressedData = job.data;
+  console.log('DEBUG COM: ', job.data);
+  console.log('DEBUG decom: ', decompressedData);
   return (
     <>
       <TableRow className={showExtra ? cls.rowWithExtra : undefined}>
@@ -98,7 +104,7 @@ const Job = ({
                   defaultExpanded={prefs.expandJobData}
                   header="Job Data"
                 >
-                  {job.data}
+                  {decompressedData}
                 </AccordionJsonView>
               )}
               {hasReturnValue && (

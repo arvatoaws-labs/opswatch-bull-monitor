@@ -22,4 +22,7 @@ export default defineConfig({
   resolve: {
     alias: ALIASES,
   },
+  define: {
+    'process.env': {}
+  },
 });
