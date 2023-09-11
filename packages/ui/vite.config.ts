@@ -23,6 +23,6 @@ export default defineConfig({
     alias: ALIASES,
   },
   define: {
-    'process.env': {}
+    'process.env': {},
   },
 });

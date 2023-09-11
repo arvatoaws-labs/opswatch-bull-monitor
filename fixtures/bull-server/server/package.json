@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "ts-node-dev -r tsconfig-paths/register --project tsconfig.docker.json index.ts",
-    "seed:init": "ts-node ./src/seeds/init.ts"
+    "start": "ts-node-dev -r tsconfig-paths/register --project tsconfig.docker.json index.ts"
   },
   "keywords": [],
   "author": "",
