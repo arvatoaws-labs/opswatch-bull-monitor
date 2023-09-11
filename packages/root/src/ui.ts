@@ -5,6 +5,7 @@ export class UI {
   private pkgName = '@bull-monitor/ui';
   private cdnRoot = `https://cdn.jsdelivr.net/npm/${this.pkgName}@${this.uiVersion}`;
   private resourcesRoot = this.cdnRoot + '/build';
+  // private resourcesRoot = './build';
   private buildCdnUrl(resource: string) {
     return this.resourcesRoot + resource;
   }
@@ -20,7 +21,7 @@ export class UI {
         rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
       />
-      <link rel="stylesheet" href="${this.buildCdnUrl('/style.css')}"/>
+      <link href="${this.buildCdnUrl('/style.css')}"/>
       <script type="module" src="${this.buildCdnUrl('/main.js')}"></script>
     </head>
     <body>
