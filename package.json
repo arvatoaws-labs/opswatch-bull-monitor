@@ -4,9 +4,9 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/s-r-x/bull-monitor.git"
+    "url": "https://github.com/arvatoaws-labs/opswatch-bull-monitor.git"
   },
-  "homepage": "https://s-r-x.github.io/bull-monitor",
+  "homepage": "https://github.com/arvatoaws-labs/opswatch-bull-monitor",
   "main": "index.js",
   "keywords": [],
   "author": "",
