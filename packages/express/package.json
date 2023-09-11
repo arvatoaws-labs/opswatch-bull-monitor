@@ -5,10 +5,9 @@
   "keywords": [
     "bull"
   ],
-  "author": "Ilya Strus <strax1990@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/s-r-x/bull-monitor.git",
+    "url": "https://github.com/arvatoaws-labs/opswatch-bull-monitor.git",
     "directory": "packages/express"
   },
   "license": "MIT",
