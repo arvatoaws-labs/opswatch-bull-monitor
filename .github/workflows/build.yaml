@@ -43,7 +43,7 @@ jobs:
         tags: ghcr.io/arvatoaws-labs/k8soptimizer:latest
         cache-from: type=registry,ref=ghcr.io/arvatoaws-labs/k8soptimizer:latest
         cache-to: type=inline
-        file: ./fixtures/bull-server/server
+        file: ./fixtures/bull-server/server/Dockerfile
     - name: Build and Push Dev
       uses: docker/build-push-action@v4
       if: github.ref == 'refs/heads/dev'
@@ -54,4 +54,4 @@ jobs:
         tags: ghcr.io/arvatoaws-labs/k8soptimizer:dev
         cache-from: type=registry,ref=ghcr.io/arvatoaws-labs/k8soptimizer:dev
         cache-to: type=inline
-        file: ./fixtures/bull-server/server
+        file: ./fixtures/bull-server/server/Dockerfile
