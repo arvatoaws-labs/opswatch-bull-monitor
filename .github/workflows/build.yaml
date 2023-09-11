@@ -40,8 +40,8 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         pull: true
-        tags: ghcr.io/arvatoaws-labs/k8soptimizer:latest
-        cache-from: type=registry,ref=ghcr.io/arvatoaws-labs/k8soptimizer:latest
+        tags: ghcr.io/arvatoaws-labs/bull-monitor:latest
+        cache-from: type=registry,ref=ghcr.io/arvatoaws-labs/bull-monitor:latest
         cache-to: type=inline
         file: ./fixtures/bull-server/server/Dockerfile
     - name: Build and Push Dev
@@ -51,7 +51,7 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         pull: true
-        tags: ghcr.io/arvatoaws-labs/k8soptimizer:dev
-        cache-from: type=registry,ref=ghcr.io/arvatoaws-labs/k8soptimizer:dev
+        tags: ghcr.io/arvatoaws-labs/bull-monitor:dev
+        cache-from: type=registry,ref=ghcr.io/arvatoaws-labs/bull-monitor:dev
         cache-to: type=inline
         file: ./fixtures/bull-server/server/Dockerfile
