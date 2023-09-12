@@ -10,17 +10,12 @@ import {
 } from 'bullmq';
 import redis from 'ioredis';
 
-const test_queues = 'metrics_queue,tagging_queue,dynamodb_account_queue,assume_account_queue,describe_queue';
-const test_prefixed = '{bull_metrics},{bull_tagging},{bull_dynamodb},{bull_assumer},{bull_describer}';
-
 const env = process.env.ENVIRONMENT ?? 'production';
 const mode = process.env.MODE ?? '';
 const port = process.env.PORT;
 const app = express();
-// const queues = process.env.QUEUES!.split(',');
-const queues = test_queues.split(',');
-// const prefixes = process.env.PREFIXES!.split(',');
-const prefixs = test_prefixed.split(',');
+const queues = process.env.QUEUES!.split(',');
+const prefixes = process.env.PREFIXES!.split(',');
 const redis_user =
   env === 'local' || env === 'dev' ? 'default' : mode.replaceAll('_', '');
 const redis_user_bull =
