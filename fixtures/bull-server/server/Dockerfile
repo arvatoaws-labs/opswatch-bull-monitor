@@ -18,9 +18,11 @@ WORKDIR /app
 ADD ./fixtures/bull-server/server /app
 RUN npm install
 
+RUN export NODE_OPTIONS=--openssl-legacy-provider
 ADD ./packages/root/ /packages/root
 RUN npm install
 
+RUN export NODE_OPTIONS=--openssl-legacy-provider
 ADD ./packages/express/ /packages/express/
 RUN npm install
 
