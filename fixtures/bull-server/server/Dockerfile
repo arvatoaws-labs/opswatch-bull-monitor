@@ -18,12 +18,14 @@ WORKDIR /app
 ADD ./fixtures/bull-server/server /app
 RUN npm install
 
-RUN export NODE_OPTIONS=--openssl-legacy-provider
+
 ADD ./packages/root/ /packages/root
+RUN npm i eslint-import-resolver-typescript
 RUN npm install
 
-RUN export NODE_OPTIONS=--openssl-legacy-provider
+
 ADD ./packages/express/ /packages/express/
+RUN npm i eslint-import-resolver-typescript
 RUN npm install
 
 CMD ["npm", "start"]
