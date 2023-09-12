@@ -10,6 +10,8 @@ import {
 } from 'bullmq';
 import redis from 'ioredis';
 
+console.log('process.env.QUEUES: '+process.env.QUEUES);
+console.log('process.env.PREFIXES: '+process.env.PREFIXES);
 const env = process.env.ENVIRONMENT ?? 'production';
 const mode = process.env.MODE ?? '';
 const port = process.env.PORT;
