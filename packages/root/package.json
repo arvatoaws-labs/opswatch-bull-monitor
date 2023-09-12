@@ -23,6 +23,7 @@
   },
   "main": "dist/index.js",
   "dependencies": {
+    "eslint-import-resolver-typescript": "^3.6.0",
     "graphql": "^15.5.0",
     "graphql-scalars": "^1.9.0",
     "jsonata": "^1.8.5",
