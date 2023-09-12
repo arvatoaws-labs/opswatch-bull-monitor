@@ -10,23 +10,6 @@ import {
 } from 'bullmq';
 import redis from 'ioredis';
 
-function delay(ms: number) {
-  return new Promise( resolve => setTimeout(resolve, ms) );
-}
-
-console.log('process.env.QUEUES: '+process.env.QUEUES);
-console.log('process.env.PREFIXES: '+process.env.PREFIXES);
-
-(async () => { 
-  // Do something before delay
-  console.log('before delay')
-
-  await delay(300000);
-
-  // Do something after
-  console.log('after delay')
-})();
-
 const env = process.env.ENVIRONMENT ?? 'production';
 const mode = process.env.MODE ?? '';
 const port = process.env.PORT;
