@@ -20,12 +20,10 @@ RUN npm install
 
 
 ADD ./packages/root/ /packages/root
-RUN npm install
-RUN npm i eslint-import-resolver-typescript
+RUN cd ../packages/root && npm install
 
 
 ADD ./packages/express/ /packages/express/
-RUN npm install
-RUN npm i eslint-import-resolver-typescript
+RUN cd ../packages/express && npm install
 
 CMD ["npm", "start"]
