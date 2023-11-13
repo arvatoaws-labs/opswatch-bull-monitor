@@ -68,19 +68,19 @@ for (let i = 0; i < queues.length; i++) {
   });
 }
 
-mqQueues.forEach((queue) => {
-  const queuePrefix = queue_prefix_lut.find((i) => i.queue === queue.name);
-  new MqWorker(
-    queue.name,
-    async (job) => {
-      return `some return value from ${job.name}`;
-    },
-    {
-      prefix: queuePrefix && queuePrefix.prefix,
-      connection: bullconnection,
-    }
-  );
-});
+// mqQueues.forEach((queue) => {
+//   const queuePrefix = queue_prefix_lut.find((i) => i.queue === queue.name);
+//   new MqWorker(
+//     queue.name,
+//     async (job) => {
+//       return `some return value from ${job.name}`;
+//     },
+//     {
+//       prefix: queuePrefix && queuePrefix.prefix,
+//       connection: bullconnection,
+//     }
+//   );
+// });
 
 const monitor = new BullMonitorExpress({
   queues: [
