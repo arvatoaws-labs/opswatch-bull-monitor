@@ -55,7 +55,7 @@
     "zustand": "^3.5.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.21.3",
+    "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/typescript": "^1.21.1",
     "@graphql-codegen/typescript-operations": "^1.17.15",
     "@types/file-saver": "^2.0.2",
